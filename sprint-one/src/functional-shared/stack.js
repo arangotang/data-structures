@@ -1,21 +1,26 @@
 var Stack = function() {
-  let someInstance = {storage: {}};
-  jQuery.extend(someInstance, stackMethods);
+  let someInstance = {storage: {}, count: 0};
+  _.extend(someInstance, stackMethods);
 
   return someInstance;
 };
 
 var stackMethods = {
   push: function(value) {
-    this.storage[Object.keys(this.storage).length] = value;
+    this.storage[this.count.toString()] = value;
+    this.count++;
   },
   pop: function() {
-    let topKey = (Object.keys(this.storage).length - 1).toString();
-    let toBePopped = this.storage[topKey];
+    if (this.count === 0) {
+      return;
+    }
+    const topKey = (this.count - 1).toString();
+    const toBePopped = this.storage[topKey];
     delete this.storage[topKey];
+    this.count--;
     return toBePopped;
   },
   size: function() {
-    return Object.keys(this.storage).length;
+    return this.count;
   }
 };

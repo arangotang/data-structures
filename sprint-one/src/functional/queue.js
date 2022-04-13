@@ -1,28 +1,29 @@
 var Queue = function() {
   var someInstance = {};
 
-  // Use an object with numeric keys to store values
   var storage = {};
-
-  // Implement the methods below
+  let count = 0;
 
   someInstance.enqueue = function(value) {
-    storage[Object.keys(storage).length] = value;
+    storage[count] = value;
+    count++;
   };
 
   someInstance.dequeue = function() {
+    if (count === 0) {
+      return;
+    }
     const toBeDequeued = storage['0'];
-    let l = Object.keys(storage).length;
-    let temp;
-    for (let i = 0; i < l; i++) {
+    for (let i = 0; i < count - 1; i++) {
       storage[i.toString()] = storage[(i + 1).toString()];
     }
-    delete storage[(l - 1).toString()];
+    delete storage[(count - 1).toString()];
+    count--;
     return toBeDequeued;
   };
 
   someInstance.size = function() {
-    return Object.keys(storage).length;
+    return count;
   };
 
   return someInstance;

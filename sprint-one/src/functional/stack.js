@@ -1,23 +1,24 @@
 var Stack = function() {
   var someInstance = {};
-
-  // Use an object with numeric keys to store values
   var storage = {};
+  let count = 0;
 
-  // add string to top of stack
   someInstance.push = function(value) {
-    storage[Object.keys(storage).length.toString()] = value;
+    storage[count] = value;
+    count++;
   };
-  // remove and return the string on the top of the stack
   someInstance.pop = function() {
-    let topKey = (Object.keys(storage).length - 1).toString();
-    let toBePopped = storage[topKey];
+    if (count === 0) {
+      return;
+    }
+    const topKey = (count - 1).toString();
+    const toBePopped = storage[topKey];
     delete storage[topKey];
+    count--;
     return toBePopped;
   };
-  // return the number of items on the stack
   someInstance.size = function() {
-    return Object.keys(storage).length;
+    return count;
   };
 
   return someInstance;
