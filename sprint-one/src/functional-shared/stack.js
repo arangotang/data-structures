@@ -1,8 +1,21 @@
 var Stack = function() {
-  // Hey! Rewrite in the new style. Your code will wind up looking very similar,
-  // but try not not reference your old code in writing the new style.
+  let someInstance = {storage: {}};
+  jQuery.extend(someInstance, stackMethods);
+
+  return someInstance;
 };
 
-var stackMethods = {};
-
-
+var stackMethods = {
+  push: function(value) {
+    this.storage[Object.keys(this.storage).length] = value;
+  },
+  pop: function() {
+    let topKey = (Object.keys(this.storage).length - 1).toString();
+    let toBePopped = this.storage[topKey];
+    delete this.storage[topKey];
+    return toBePopped;
+  },
+  size: function() {
+    return Object.keys(this.storage).length;
+  }
+};
