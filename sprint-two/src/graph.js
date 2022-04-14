@@ -2,18 +2,34 @@
 
 // Instantiate a new graph
 var Graph = function() {
+  this.nodes = {};
 };
 
 // Add a node to the graph, passing in the node's value.
 Graph.prototype.addNode = function(node) {
+  let newNode = {
+    value: node,
+    connections: {}
+  };
+  this.nodes[node] = newNode;
 };
 
 // Return a boolean value indicating if the value passed to contains is represented in the graph.
 Graph.prototype.contains = function(node) {
+  return this.nodes[node] !== undefined;
 };
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
+  // if node is not contained in graph
+    // return
+
+  // iterate through this.nodes
+    // if current node has value of node
+      // splice out of the array
+    // otherwise
+      // iterate through currentNode's connections
+        // if connections contains a node of value
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
@@ -31,6 +47,7 @@ Graph.prototype.removeEdge = function(fromNode, toNode) {
 // Pass in a callback which will be executed on each node of the graph.
 Graph.prototype.forEachNode = function(cb) {
 };
+
 
 /*
  * Complexity: What is the time complexity of the above functions?
