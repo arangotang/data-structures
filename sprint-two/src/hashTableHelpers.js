@@ -16,11 +16,11 @@ var LimitedArray = function(limit) {
 
   var limitedArray = {};
   limitedArray.get = function(index) {
-    checkLimit(index);
+    limitedArray.checkLimit(index);
     return storage[index];
   };
   limitedArray.set = function(index, value) {
-    checkLimit(index);
+    limitedArray.checkLimit(index);
     storage[index] = value;
   };
   limitedArray.each = function(callback) {
@@ -29,7 +29,7 @@ var LimitedArray = function(limit) {
     }
   };
 
-  var checkLimit = function(index) {
+  limitedArray.checkLimit = function(index) {
     if (typeof index !== 'number') {
       throw new Error('setter requires a numeric index for its first argument');
     }
@@ -38,27 +38,28 @@ var LimitedArray = function(limit) {
     }
   };
 
+  // This is a "hashing function". You don't need to worry about it, just use it
+  // to turn any string into an integer that is well-distributed between the
+  // numbers 0 and `max`
+  limitedArray.getIndexBelowMaxForKey = function(str, max) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+      hash = (hash << 5) + hash + str.charCodeAt(i);
+      hash = hash & hash; // Convert to 32bit integer
+      hash = Math.abs(hash);
+    }
+    return hash % max;
+  };
+
   return limitedArray;
 };
 
-// This is a "hashing function". You don't need to worry about it, just use it
-// to turn any string into an integer that is well-distributed between the
-// numbers 0 and `max`
-var getIndexBelowMaxForKey = function(str, max) {
-  var hash = 0;
-  for (var i = 0; i < str.length; i++) {
-    hash = (hash << 5) + hash + str.charCodeAt(i);
-    hash = hash & hash; // Convert to 32bit integer
-    hash = Math.abs(hash);
-  }
-  return hash % max;
-};
 
 /*
  * Complexity: What is the time complexity of the above functions?
  * limitedArray.get - O(1): time is independent of input
- * limitedArray.get - O(1): time is independent of input
- * limitedArray.get - O(1): time is independent of input
+ * limitedArray.set - O(1): time is independent of input
+ * limitedArray.each - O(n): time is dependent of iteration through n = length of array
  * checkLimit - O(1): time is independent of input
  * getIndexBelowMaxForKey - O(n): time is linearly dependent on n = string length
  */
