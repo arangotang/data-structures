@@ -63,4 +63,9 @@ var Node = function(value) {
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ *
+ * addToTail: O(n) -> worst case (always): iterate through whole list of length n in order to reach the tail
+ * removeHead: O(1) -> no iteration required, same regardless of input
+ * contains: O(n) -> worst case: iterate through whole list of length n from head to tail to find if value is contained
+ *
  */
