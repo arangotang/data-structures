@@ -1,31 +1,26 @@
-
-
-var HashTable = function() {
+const HashTable = function() {
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
 };
 
 HashTable.prototype.insert = function(k, v) {
-  var index = this._storage.getIndexBelowMaxForKey(k, this._limit);
+  let index = this._storage.getIndexBelowMaxForKey(k, this._limit);
   this._storage.set(index, v);
 };
 
 HashTable.prototype.retrieve = function(k) {
-  var index = this._storage.getIndexBelowMaxForKey(k, this._limit);
-  // debugger;
+  let index = this._storage.getIndexBelowMaxForKey(k, this._limit);
   return this._storage.get(index);
 };
 
 HashTable.prototype.remove = function(k) {
-  var index = this._storage.getIndexBelowMaxForKey(k, this._limit);
+  let index = this._storage.getIndexBelowMaxForKey(k, this._limit);
   this._storage.each(function(item, i, collection) {
     if (index === i) {
-      collection.splice(i, 1);
+      delete collection[i];
     }
   });
 };
-
-
 
 /*
  * Complexity: What is the time complexity of the above functions?
