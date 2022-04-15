@@ -12,29 +12,22 @@ BinarySearchTree.prototype.insert = function(value) {
     } else {
       this.right.insert(value);
     }
+  } else if (this.left === null) {
+    this.left = newTree;
   } else {
-    if (this.left === null) {
-      this.left = newTree;
-    } else {
-      this.left.insert(value);
-    }
+    this.left.insert(value);
   }
 };
 
 BinarySearchTree.prototype.contains = function(value) {
   if (value === this.value) {
     return true;
-  } else if (this.value < value) {
-    if (this.right !== null) {
-      return this.right.contains(value);
-    }
-    return false;
-  } else if (this.value > value) {
-    if (this.left !== null) {
-      return this.left.contains(value);
-    }
-    return false;
+  } else if (this.value < value && this.right !== null) {
+    return this.right.contains(value);
+  } else if (this.value > value && this.left !== null) {
+    return this.left.contains(value);
   }
+  return false;
 };
 
 BinarySearchTree.prototype.depthFirstLog = function(value) {
