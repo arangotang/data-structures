@@ -5,39 +5,55 @@ var DoublyLinkedList = function() {
   list.tail = null;
 
   list.addToTail = function(value) {
+    let newTail = Node(value);
     if (list.head === null) {
-      let newTail = Node(value);
       list.head = newTail;
-      list.tail = newTail;
     } else {
-      let newTail = Node(value);
       list.tail.next = newTail;
-      list.tail = newTail;
+      newTail.prev = list.tail;
     }
+    list.tail = newTail;
   };
 
   list.addToHead = function(value) {
+    let newHead = Node(value);
     if (list.head === null) {
-      let newHead = Node(value);
       list.tail = newHead;
-      list.head = newHead;
     } else {
-      let newHead = Node(value);
       list.head.prev = newHead;
-      list.head = newHead;
+      newHead.next = list.head;
     }
+    list.head = newHead;
   };
 
   list.removeHead = function() {
     if (list.head === null) {
       return;
     }
-    let temp = list;
+    let temp = list.head;
     if (list.head.next === null) {
       list.head = null;
       list.tail = null;
     } else {
-      list.head = list.head.next;
+      let headToBe = list.head.next;
+      headToBe.prev = null;
+      list.head = headToBe;
+    }
+    return temp;
+  };
+
+  list.removeTail = function(value) {
+    if (list.tail === null) {
+      return;
+    }
+    let temp = list.tail;
+    if (list.tail.prev === null) {
+      list.head = null;
+      list.tail = null;
+    } else {
+      let tailToBe = list.tail.prev;
+      tailToBe.next = null;
+      list.tail = tailToBe;
     }
     return temp;
   };
@@ -58,9 +74,6 @@ var DoublyLinkedList = function() {
       }
       return false;
     }
-  };
-
-  list.removeTail = function(value) {
   };
 
   return list;
