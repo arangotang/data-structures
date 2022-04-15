@@ -1,10 +1,8 @@
 var Queue = function() {
-  // Hey! Rewrite in the new style. Your code will wind up looking very similar,
-  // but try not not reference your old code in writing the new style.
   let newQueue = Object.create(queueMethods);
-
   newQueue.count = 0;
   newQueue.storage = {};
+
   return newQueue;
 };
 
@@ -13,20 +11,19 @@ var queueMethods = {
     this[this.count] = value;
     this.count++;
   },
+
   dequeue: function() {
-    if (this.count === 0) {
-      return;
-    }
+    if (!this.count) { return; }
 
-    const dequeuedValue = this['0'];
+    const dequeued = this[0];
     for (let i = 0; i < this.count - 1; i++) {
-      this[i.toString()] = this[(i + 1).toString()];
+      this[i] = this[i + 1];
     }
-    this.count--;
-    return dequeuedValue;
 
+    delete this.storage[this.count - 1];
+    this.count--;
+
+    return dequeued;
   },
-  size: function() {
-    return this.count;
-  },
+  size: function() { return this.count; }
 };

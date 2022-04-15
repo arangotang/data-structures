@@ -1,25 +1,24 @@
-var Stack = function() {
-  var someInstance = {};
-  var storage = {};
+const Stack = function() {
+  let someInstance = {};
+  let storage = {};
   let count = 0;
 
   someInstance.push = function(value) {
     storage[count] = value;
     count++;
   };
+
   someInstance.pop = function() {
-    if (count === 0) {
-      return;
-    }
-    const topKey = (count - 1).toString();
-    const toBePopped = storage[topKey];
-    delete storage[topKey];
+    if (!count) { return; }
+
+    const popped = storage[count - 1];
+    delete storage[count - 1];
     count--;
-    return toBePopped;
+
+    return popped;
   };
-  someInstance.size = function() {
-    return count;
-  };
+
+  someInstance.size = function() { return count; };
 
   return someInstance;
 };

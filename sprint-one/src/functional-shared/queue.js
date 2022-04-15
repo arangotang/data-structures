@@ -1,27 +1,29 @@
-var Queue = function() {
+const Queue = function() {
   let someInstance = {storage: {}, count: 0};
   _.extend(someInstance, queueMethods);
+
   return someInstance;
 };
 
-var queueMethods = {
+const queueMethods = {
   enqueue: function(value) {
-    this.storage[(this.count).toString()] = value;
+    this.storage[this.count] = value;
     this.count++;
   },
+
   dequeue: function() {
-    if (this.count === 0) {
-      return;
-    }
-    const toBeDequeued = this.storage['0'];
+    if (!this.count) { return; }
+
+    const dequeued = this.storage[0];
     for (let i = 0; i < this.count - 1; i++) {
-      this.storage[i.toString()] = this.storage[(i + 1).toString()];
+      this.storage[i] = this.storage[i + 1];
     }
-    delete this.storage[(this.count - 1).toString()];
+
+    delete this.storage[this.count - 1];
     this.count--;
-    return toBeDequeued;
+
+    return dequeued;
   },
-  size: function() {
-    return this.count;
-  }
+
+  size: function() { return this.count; }
 };

@@ -10,20 +10,18 @@ class Queue {
   }
 
   dequeue() {
-    if (this.count === 0) {
-      return;
-    }
+    if (!this.count) { return; }
 
-    const dequeued = this.storage['0'];
+    const dequeued = this.storage[0];
     for (let i = 0; i < this.count - 1; i++) {
       this.storage[i] = this.storage[i + 1];
     }
+
     delete this.storage[this.count - 1];
     this.count--;
+
     return dequeued;
   }
 
-  size() {
-    return this.count;
-  }
+  size() { return this.count; }
 }

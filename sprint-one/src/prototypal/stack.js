@@ -1,4 +1,4 @@
-var Stack = function() {
+const Stack = function() {
   let newStack = Object.create(stackMethods);
 
   newStack.storage = {};
@@ -7,22 +7,19 @@ var Stack = function() {
   return newStack;
 };
 
-var stackMethods = {
-  storage: {},
-  count: 0,
+const stackMethods = {
   push: function(value) {
     this.storage[this.count] = value;
     this.count++;
   },
   pop: function() {
-    if (this.count === 0) {
-      return;
-    }
-    const poppedValue = this.storage[this.count - 1];
+    if (!this.count) { return; }
+
+    const popped = this.storage[this.count - 1];
+    delete this.storage[this.count - 1];
     this.count--;
-    return poppedValue;
+
+    return popped;
   },
-  size: function() {
-    return this.count;
-  }
+  size: function() { return this.count; }
 };

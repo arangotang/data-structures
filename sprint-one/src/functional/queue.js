@@ -1,7 +1,6 @@
-var Queue = function() {
-  var someInstance = {};
-
-  var storage = {};
+const Queue = function() {
+  let someInstance = {};
+  let storage = {};
   let count = 0;
 
   someInstance.enqueue = function(value) {
@@ -10,21 +9,19 @@ var Queue = function() {
   };
 
   someInstance.dequeue = function() {
-    if (count === 0) {
-      return;
-    }
-    const toBeDequeued = storage['0'];
+    if (!count) { return; }
+
+    const dequeued = storage[0];
     for (let i = 0; i < count - 1; i++) {
-      storage[i.toString()] = storage[(i + 1).toString()];
+      storage[i] = storage[i + 1];
     }
-    delete storage[(count - 1).toString()];
+    delete storage[count - 1];
     count--;
-    return toBeDequeued;
+
+    return dequeued;
   };
 
-  someInstance.size = function() {
-    return count;
-  };
+  someInstance.size = function() { return count; };
 
   return someInstance;
 };

@@ -1,26 +1,25 @@
-var Stack = function() {
+const Stack = function() {
   let someInstance = {storage: {}, count: 0};
   _.extend(someInstance, stackMethods);
 
   return someInstance;
 };
 
-var stackMethods = {
+const stackMethods = {
   push: function(value) {
-    this.storage[this.count.toString()] = value;
+    this.storage[this.count] = value;
     this.count++;
   },
+
   pop: function() {
-    if (this.count === 0) {
-      return;
-    }
-    const topKey = (this.count - 1).toString();
-    const toBePopped = this.storage[topKey];
-    delete this.storage[topKey];
+    if (!this.count) { return; }
+
+    const popped = this.storage[this.count - 1];
+    delete this.storage[this.count - 1];
     this.count--;
-    return toBePopped;
+
+    return popped;
   },
-  size: function() {
-    return this.count;
-  }
+
+  size: function() { return this.count; }
 };
