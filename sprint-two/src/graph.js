@@ -1,5 +1,5 @@
 // Instantiate a new graph
-var Graph = function() {
+const Graph = function() {
   this.nodes = {};
 };
 

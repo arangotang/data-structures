@@ -1,4 +1,4 @@
-describe('graph', function() {
+describe('graph (using an object)', function() {
   var graph;
 
   beforeEach(function() {
@@ -67,5 +67,12 @@ describe('graph', function() {
     expect(graph.hasEdge(1, 5)).to.equal(true);
     expect(graph.hasEdge(3, 5)).to.equal(true);
     expect(graph.hasEdge(5, 5)).to.equal(true);
+  });
+
+  it('should not contain nodes never added to it', function() {
+    graph.addNode(2);
+    expect(graph.contains(4)).to.equal(false);
+    expect(graph.contains(3)).to.equal(false);
+    expect(graph.contains(10)).to.equal(false);
   });
 });
