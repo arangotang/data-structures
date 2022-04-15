@@ -1,11 +1,13 @@
 const HashTable = function() {
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
+  this._count = 0;
 };
 
 HashTable.prototype.insert = function(k, v) {
   let index = this._storage.getIndexBelowMaxForKey(k, this._limit);
   this._storage.set(index, v);
+  this._count++;
 };
 
 HashTable.prototype.retrieve = function(k) {
@@ -20,6 +22,7 @@ HashTable.prototype.remove = function(k) {
       delete collection[i];
     }
   });
+  this._count--;
 };
 
 /*
