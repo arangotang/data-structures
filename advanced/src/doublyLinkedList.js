@@ -59,7 +59,7 @@ var DoublyLinkedList = function() {
   };
 
   list.contains = function(target) {
-    console.log(list);
+    // console.log(list);
     if (list.head === null) {
       return false;
     } else if (list.head.value === target) {

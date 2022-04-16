@@ -1,11 +1,21 @@
-var BinarySearchTree = function(value) {
+var BinarySearchTree = function(value, isParent) {
   this.value = value;
   this.left = null;
   this.right = null;
+  this.contents = [value];
+  this.isParent = true;
 };
 
 BinarySearchTree.prototype.insert = function(value) {
+  this.contents.push(value);
+  this.contents.sort(function(a, b) {
+    if (a < b) {
+      return -1;
+    }
+    return 1;
+  });
   let newTree = new BinarySearchTree(value);
+  newTree.isParent = false;
   if (this.value < value) {
     if (this.right === null) {
       this.right = newTree;
@@ -41,6 +51,37 @@ BinarySearchTree.prototype.depthFirstLog = function(cb) {
   }
 };
 
+BinarySearchTree.prototype.minDepth = function() {
+  debugger;
+  let depth = 0;
+  let level = [this];
+  if (this.left === null || this.right === null) {
+    return depth;
+  }
+  depth++;
+  console.log([this.value]);
+  while (level.length !== 0 || depth === 1) {
+    let oldLevel = level;
+    level = [];
+    for (let i = 0; i < oldLevel.length; i++) {
+      if (oldLevel[i].left !== null) {
+        level.push(oldLevel[i].left);
+      }
+      if (oldLevel[i].right !== null) {
+        level.push(oldLevel[i].right);
+      }
+    }
+    // console.log(_.map(level, function(node) {
+    //   return node.value;
+    // }));
+    if (level.length < Math.pow(2, depth)) {
+      return depth - 1;
+    }
+    depth++;
+  }
+  // return depth;
+};
+
 BinarySearchTree.prototype.breadthFirstLog = function(cb) {
   cb(this.value);
   let level = [this];
@@ -58,6 +99,7 @@ BinarySearchTree.prototype.breadthFirstLog = function(cb) {
       }
     }
   }
+  return;
 };
 
 /*
